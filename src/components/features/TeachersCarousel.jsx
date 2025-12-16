@@ -10,8 +10,11 @@ const TeachersCarousel = () => {
     useEffect(() => {
         const fetchMentors = async () => {
             try {
-                const { data } = await client.get('/mentors');
-                setTeachers(data.map(mentor => ({
+                const res = await client.get('/mentors');
+                const data = res.data;
+                const mentorsArray = Array.isArray(data) ? data : (data?.mentors ?? data?.data ?? []);
+
+                setTeachers(mentorsArray.map(mentor => ({
                     _id: mentor._id,
                     name: mentor.name,
                     overall: mentor.overall,

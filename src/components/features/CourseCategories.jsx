@@ -22,10 +22,13 @@ const CourseCategories = () => {
     useEffect(() => {
         const fetchPrograms = async () => {
             try {
-                const { data } = await client.get('/programs/groups');
-                setProgramGroups(data);
-                if (data.length > 0) {
-                    setActiveTab(data[0]._id);
+                const res = await client.get('/programs/groups');
+                const data = res.data;
+                const groupsArray = Array.isArray(data) ? data : (data?.groups ?? data?.programGroups ?? data?.data ?? []);
+
+                setProgramGroups(groupsArray);
+                if (groupsArray.length > 0) {
+                    setActiveTab(groupsArray[0]._id);
                 }
                 setLoading(false);
             } catch (error) {

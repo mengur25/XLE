@@ -30,8 +30,14 @@ const HomePage = () => {
           client.get('/programs/tracks')
         ]);
 
-        setStudentResults(resultsRes.data.slice(0, 3));
-        setProgramTracks(tracksRes.data.slice(0, 3));
+        const resultsData = resultsRes.data;
+        const resultsArray = Array.isArray(resultsData) ? resultsData : (resultsData?.results ?? resultsData?.data ?? []);
+
+        const tracksData = tracksRes.data;
+        const tracksArray = Array.isArray(tracksData) ? tracksData : (tracksData?.tracks ?? tracksData?.data ?? []);
+
+        setStudentResults(resultsArray.slice(0, 3));
+        setProgramTracks(tracksArray.slice(0, 3));
       } catch (error) {
         console.error('Error fetching home page data:', error);
       }

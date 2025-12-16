@@ -7,8 +7,11 @@ const ReferenceMaterials = () => {
     useEffect(() => {
         const fetchBlogPosts = async () => {
             try {
-                const { data } = await client.get('/blog-posts');
-                setMaterials(data.posts.map(post => ({
+                const res = await client.get('/blog-posts');
+                const data = res.data;
+                const postsArray = Array.isArray(data) ? data : (data?.posts ?? data?.data ?? []);
+
+                setMaterials(postsArray.map(post => ({
                     id: post._id,
                     title: post.title,
                     description: post.excerpt,
