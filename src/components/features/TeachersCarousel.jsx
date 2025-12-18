@@ -91,7 +91,7 @@ const TeachersCarousel = () => {
                             {getVisibleTeachers().map((teacher, index) => {
                                 if (!teacher) return null;
                                 return (
-                                    <div key={`${teacher._id}-${index}`} className="bg-[#e0e7ff] rounded-2xl p-6 flex flex-col md:flex-row items-center gap-6 shadow-md relative overflow-hidden h-full min-h-[300px]">
+                                    <div key={`${teacher._id}-${index}`} className="bg-[#e0e7ff] rounded-2xl p-6 flex flex-col md:flex-row items-center gap-6 shadow-md relative overflow-hidden h-full md:h-[450px] min-h-[300px]">
                                         {/* Image */}
                                         <div className="w-full md:w-1/2 h-64 md:h-full relative z-10">
                                             <img
@@ -108,7 +108,7 @@ const TeachersCarousel = () => {
 
                                             <div className="mb-6">
                                                 <p className="font-bold text-black uppercase text-sm mb-1">"{teacher.slogan_Title}"</p>
-                                                <div className="text-[#4b5563] italic text-sm" dangerouslySetInnerHTML={{ __html: teacher.slogan_Content }} />
+                                                <div className="text-[#4b5563] italic text-sm line-clamp-4 min-h-[5rem]" dangerouslySetInnerHTML={{ __html: teacher.slogan_Content }} />
                                             </div>
 
                                             <button className="bg-[#5b5e98] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#4a4d85] transition-colors shadow-md self-start md:self-end mt-auto">

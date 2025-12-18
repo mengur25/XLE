@@ -9,6 +9,9 @@ import result5 from '../../assets/results/result5.jpg';
 import result6 from '../../assets/results/result6.jpg';
 import result7 from '../../assets/results/result7.jpg';
 
+// Static results for now, can be dynamic later
+const results = [result1, result2, result3, result4, result5, result6, result7];
+
 const CourseCategories = () => {
     const [programGroups, setProgramGroups] = useState([]);
     const [activeTab, setActiveTab] = useState(null);
@@ -16,8 +19,7 @@ const CourseCategories = () => {
     const [activeResultIndex, setActiveResultIndex] = useState(0);
     const [loading, setLoading] = useState(true);
 
-    // Static results for now, can be dynamic later
-    const results = [result1, result2, result3, result4, result5, result6, result7];
+
 
     useEffect(() => {
         const fetchPrograms = async () => {
@@ -56,6 +58,14 @@ const CourseCategories = () => {
         }
     }, [activeTab, currentGroup]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setActiveResultIndex((prev) => (prev === results.length - 1 ? 0 : prev + 1));
+        }, 2000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     const currentTrack = currentGroup?.tracks?.find(t => t._id === activeSubTab);
 
     if (loading) return <div className="py-12 text-center">Loading...</div>;
@@ -78,8 +88,8 @@ const CourseCategories = () => {
                         <h4
                             onClick={() => setActiveTab(group._id)}
                             className={`cursor-pointer text-lg font-bold uppercase py-2 px-4 transition-colors duration-300 border-b-2 ${activeTab === group._id
-                                    ? 'text-primary border-primary'
-                                    : 'text-gray-500 border-transparent hover:text-primary'
+                                ? 'text-primary border-primary'
+                                : 'text-gray-500 border-transparent hover:text-primary'
                                 }`}
                         >
                             {group.name}
@@ -98,8 +108,8 @@ const CourseCategories = () => {
                                 key={track._id}
                                 onClick={() => setActiveSubTab(track._id)}
                                 className={`cursor-pointer text-xl font-bold uppercase transition-colors duration-300 ${activeSubTab === track._id
-                                        ? 'text-primary'
-                                        : 'text-gray-400 hover:text-primary'
+                                    ? 'text-primary'
+                                    : 'text-gray-400 hover:text-primary'
                                     }`}
                             >
                                 {track.name}
@@ -182,60 +192,60 @@ const CourseCategories = () => {
                                 </div>
                             </div>
 
-                            
+
                         </div>
                         {/* Right Column: Carousel */}
-                            <div className="relative h-[400px] flex items-center justify-center overflow-hidden bg-gray-50 rounded-xl">
-                                <div
-                                    className="flex items-center transition-transform duration-500 ease-in-out"
-                                    style={{
-                                        transform: `translateX(calc(50% - ${activeResultIndex * 320}px - 146px))`
-                                    }}
-                                >
-                                    {results.map((img, index) => {
-                                        const isActive = index === activeResultIndex;
-                                        return (
-                                            <div
-                                                key={index}
-                                                className={`flex-shrink-0 w-[292px] mx-4 transition-all duration-500 ease-in-out ${isActive ? 'scale-100 opacity-100 z-10' : 'scale-90 opacity-50 blur-[1px]'
-                                                    }`}
-                                            >
-                                                <img
-                                                    src={img}
-                                                    alt={`Result ${index + 1}`}
-                                                    className="w-full h-auto rounded-lg shadow-md"
-                                                />
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-
-                                {/* Navigation Buttons */}
-                                <button
-                                    onClick={() => setActiveResultIndex(prev => prev === 0 ? results.length - 1 : prev - 1)}
-                                    className="absolute left-4 z-20 bg-white/80 p-2 rounded-full shadow hover:bg-white text-primary transition-all"
-                                >
-                                    <ChevronLeft size={24} />
-                                </button>
-                                <button
-                                    onClick={() => setActiveResultIndex(prev => prev === results.length - 1 ? 0 : prev + 1)}
-                                    className="absolute right-4 z-20 bg-white/80 p-2 rounded-full shadow hover:bg-white text-primary transition-all"
-                                >
-                                    <ChevronRight size={24} />
-                                </button>
-
-                                {/* Dots */}
-                                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
-                                    {results.map((_, index) => (
-                                        <button
+                        <div className="relative h-[400px] flex items-center justify-center overflow-hidden bg-gray-50 rounded-xl">
+                            <div
+                                className="flex items-center transition-transform duration-500 ease-in-out"
+                                style={{
+                                    transform: `translateX(calc(50% - ${activeResultIndex * 320}px - 146px))`
+                                }}
+                            >
+                                {results.map((img, index) => {
+                                    const isActive = index === activeResultIndex;
+                                    return (
+                                        <div
                                             key={index}
-                                            onClick={() => setActiveResultIndex(index)}
-                                            className={`w-2 h-2 rounded-full transition-all duration-300 ${index === activeResultIndex ? 'bg-primary w-6' : 'bg-gray-300 hover:bg-primary/50'
+                                            className={`flex-shrink-0 w-[292px] mx-4 transition-all duration-500 ease-in-out ${isActive ? 'scale-100 opacity-100 z-10' : 'scale-90 opacity-50 blur-[1px]'
                                                 }`}
-                                        />
-                                    ))}
-                                </div>
+                                        >
+                                            <img
+                                                src={img}
+                                                alt={`Result ${index + 1}`}
+                                                className="w-full h-auto rounded-lg shadow-md"
+                                            />
+                                        </div>
+                                    );
+                                })}
                             </div>
+
+                            {/* Navigation Buttons */}
+                            <button
+                                onClick={() => setActiveResultIndex(prev => prev === 0 ? results.length - 1 : prev - 1)}
+                                className="absolute left-4 z-20 bg-white/80 p-2 rounded-full shadow hover:bg-white text-primary transition-all"
+                            >
+                                <ChevronLeft size={24} />
+                            </button>
+                            <button
+                                onClick={() => setActiveResultIndex(prev => prev === results.length - 1 ? 0 : prev + 1)}
+                                className="absolute right-4 z-20 bg-white/80 p-2 rounded-full shadow hover:bg-white text-primary transition-all"
+                            >
+                                <ChevronRight size={24} />
+                            </button>
+
+                            {/* Dots */}
+                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+                                {results.map((_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setActiveResultIndex(index)}
+                                        className={`w-2 h-2 rounded-full transition-all duration-300 ${index === activeResultIndex ? 'bg-primary w-6' : 'bg-gray-300 hover:bg-primary/50'
+                                            }`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
                 )}
