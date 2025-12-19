@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import client from '../../api/client';
 
 const ReferenceMaterials = () => {
     const [materials, setMaterials] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchBlogPosts = async () => {
@@ -16,7 +18,8 @@ const ReferenceMaterials = () => {
                     title: post.title,
                     description: post.excerpt,
                     image: post.coverImageUrl,
-                    overlayTitle: post.title.toUpperCase()
+                    overlayTitle: post.title.toUpperCase(),
+                    slug: post.slug
                 })));
             } catch (error) {
                 console.error('Error fetching blog posts:', error);
@@ -44,7 +47,10 @@ const ReferenceMaterials = () => {
                                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 />
                                 {/* Overlay Content */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-between p-6">
+                                <div
+                                    className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-between p-6 cursor-pointer"
+                                    onClick={() => navigate(`/${item.slug}`)}
+                                >
                                     <div className="text-center mt-8">
                                         <div className="w-12 h-12 bg-white/20 rounded-full mx-auto mb-4 backdrop-blur-sm flex items-center justify-center">
                                             <div className="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[15px] border-b-pink-400"></div>
@@ -54,7 +60,7 @@ const ReferenceMaterials = () => {
                                         </h3>
                                     </div>
 
-                                    <div className="bg-[#a5b4fc] text-white text-center py-2 px-4 rounded-full font-bold uppercase text-sm mx-auto w-full max-w-[90%] mb-4">
+                                    <div className="bg-[#a5b4fc] text-white text-center py-2 px-4 rounded-full font-bold uppercase text-sm mx-auto w-full max-w-[90%] mb-4 hover:bg-[#818cf8] transition-colors">
                                         TÌM HIỂU TRONG BÀI VIẾT DƯỚI ĐÂY
                                     </div>
                                 </div>
@@ -68,7 +74,10 @@ const ReferenceMaterials = () => {
                                 <p className="text-gray-600 text-sm mb-6 line-clamp-3 flex-grow">
                                     {item.description}
                                 </p>
-                                <button className="bg-[#5b5e98] text-white px-8 py-2 rounded font-bold hover:bg-[#4a4d85] transition-colors uppercase text-sm self-center mt-auto">
+                                <button
+                                    onClick={() => navigate(`/${item.slug}`)}
+                                    className="bg-[#5b5e98] text-white px-8 py-2 rounded font-bold hover:bg-[#4a4d85] transition-colors uppercase text-sm self-center mt-auto"
+                                >
                                     XEM THÊM
                                 </button>
                             </div>

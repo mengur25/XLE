@@ -110,13 +110,13 @@ const AboutCoursesCarousel = () => {
             {/* Navigation Buttons */}
             <button
                 onClick={prevSlide}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-6 z-10 bg-[#5b5e98] hover:bg-[#4a4d85] text-white p-2 rounded-full shadow-lg transition-colors"
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-[#5b5e98] hover:bg-[#4a4d85] text-white p-2 rounded-full shadow-lg transition-colors"
             >
                 <ChevronLeft size={24} />
             </button>
             <button
                 onClick={nextSlide}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-6 z-10 bg-[#5b5e98] hover:bg-[#4a4d85] text-white p-2 rounded-full shadow-lg transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-[#5b5e98] hover:bg-[#4a4d85] text-white p-2 rounded-full shadow-lg transition-colors"
             >
                 <ChevronRight size={24} />
             </button>

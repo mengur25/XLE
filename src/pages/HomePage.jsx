@@ -55,7 +55,7 @@ const HomePage = () => {
     <div className="pt-20">
       <HomePopup />
       {/* Hero Section */}
-      <section className="relative h-[600px] flex items-center text-white overflow-hidden">
+      <section className="relative min-h-[600px] lg:h-[600px] h-auto flex items-center text-white overflow-hidden py-12 lg:py-0">
         <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[120%] bg-gradient-to-br from-primary-light to-primary-dark rounded-l-full opacity-10 z-0"></div>
         <div className="container mx-auto px-4 relative z-10 grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
           <div className="animate-fade-in">
@@ -318,8 +318,8 @@ const HomePage = () => {
 
       {/* Popular Courses Preview */}
       <Section className="bg-gray-50 py-24">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
-          <div>
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-12 gap-4">
+          <div className="text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-bold text-primary-dark mb-4">Khóa Học Nổi Bật</h2>
             <p className="text-text-secondary text-lg">Lộ trình học được thiết kế cá nhân hóa.</p>
           </div>
@@ -336,6 +336,7 @@ const HomePage = () => {
               image={track.detailIllustrationUrl || "https://placehold.co/400x300/6366f1/ffffff?text=Course"}
               features={track.syllabusItems?.slice(0, 3).map(s => s.title) || []}
               link={`/course-details/${track.slug}`}
+              hideFeatures={true}
             />
           ))}
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../common/Button';
 
 
-const CourseCard = ({ title, image, description, features, link }) => {
+const CourseCard = ({ title, image, description, features, link, hideFeatures }) => {
     return (
         <div className="bg-white rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full flex flex-col group">
             <div className="relative h-[200px] overflow-hidden">
@@ -15,14 +15,16 @@ const CourseCard = ({ title, image, description, features, link }) => {
             </div>
             <div className="p-6 flex-grow flex flex-col">
                 <h3 className="text-xl font-bold text-primary-dark mb-3 uppercase">{title}</h3>
-                <div className="text-sm text-text-secondary space-y-1">
-                    {features && features.map((feature, index) => (
-                        <p key={index} className="flex items-start">
-                            <span className="mr-2 text-primary">•</span>
-                            {feature}
-                        </p>
-                    ))}
-                </div>
+                {!hideFeatures && (
+                    <div className="text-sm text-text-secondary space-y-1">
+                        {features && features.map((feature, index) => (
+                            <p key={index} className="flex items-start">
+                                <span className="mr-2 text-primary">•</span>
+                                {feature}
+                            </p>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

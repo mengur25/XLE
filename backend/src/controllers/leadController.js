@@ -51,4 +51,20 @@ const exportLeads = asyncHandler(async (req, res) => {
     res.send(fields.join(',') + '\n' + csv.join('\n'));
 });
 
-export { createLead, getLeads, exportLeads };
+// @desc    Update lead status
+// @route   PUT /api/v1/leads/:id
+// @access  Private/Admin
+const updateLeadStatus = asyncHandler(async (req, res) => {
+    const lead = await Lead.findById(req.params.id);
+
+    if (lead) {
+        lead.status = req.body.status || lead.status;
+        const updatedLead = await lead.save();
+        res.json(updatedLead);
+    } else {
+        res.status(404);
+        throw new Error('Lead not found');
+    }
+});
+
+export { createLead, getLeads, exportLeads, updateLeadStatus };

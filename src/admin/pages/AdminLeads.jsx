@@ -38,6 +38,18 @@ const AdminLeads = () => {
         }
     };
 
+    const handleStatusChange = async (id, newStatus) => {
+        try {
+            await client.put(`/leads/${id}`, { status: newStatus });
+            setLeads(leads.map(lead =>
+                lead._id === id ? { ...lead, status: newStatus } : lead
+            ));
+        } catch (error) {
+            console.error('Error updating lead status:', error);
+            alert('Failed to update status');
+        }
+    };
+
     if (loading) return <div>Loading...</div>;
 
     return (
@@ -100,14 +112,18 @@ const AdminLeads = () => {
                                     {new Date(lead.createdAt).toLocaleDateString('vi-VN')}
                                 </td>
                                 <td className="px-6 py-4">
-                                    <span
-                                        className={`px-2 py-1 rounded-full text-xs font-bold ${lead.status === 'new'
+                                    <select
+                                        value={lead.status}
+                                        onChange={(e) => handleStatusChange(lead._id, e.target.value)}
+                                        className={`px-2 py-1 rounded-full text-xs font-bold border-none focus:ring-2 focus:ring-blue-500 cursor-pointer ${lead.status === 'new'
                                             ? 'bg-blue-100 text-blue-700'
                                             : 'bg-gray-100 text-gray-700'
                                             }`}
                                     >
-                                        {lead.status}
-                                    </span>
+                                        <option value="new">New</option>
+                                        <option value="contacted">Contacted</option>
+
+                                    </select>
                                 </td>
                             </tr>
                         ))}

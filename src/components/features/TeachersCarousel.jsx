@@ -6,6 +6,21 @@ const TeachersCarousel = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const [teachers, setTeachers] = useState([]);
+    const [visibleCount, setVisibleCount] = useState(2);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 768) {
+                setVisibleCount(1);
+            } else {
+                setVisibleCount(2);
+            }
+        };
+
+        handleResize(); // Initial check
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         const fetchMentors = async () => {
@@ -55,7 +70,7 @@ const TeachersCarousel = () => {
     const getVisibleTeachers = () => {
         if (teachers.length === 0) return [];
         const visible = [];
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < visibleCount; i++) {
             visible.push(teachers[(currentIndex + i) % teachers.length]);
         }
         return visible;
@@ -91,7 +106,7 @@ const TeachersCarousel = () => {
                             {getVisibleTeachers().map((teacher, index) => {
                                 if (!teacher) return null;
                                 return (
-                                    <div key={`${teacher._id}-${index}`} className="bg-[#e0e7ff] rounded-2xl p-6 flex flex-col md:flex-row items-center gap-6 shadow-md relative overflow-hidden h-full md:h-[450px] min-h-[300px]">
+                                    <div key={`${teacher._id}-${index}`} className="bg-[#e0e7ff] rounded-2xl p-4 flex flex-col md:flex-row items-center gap-4 shadow-md relative overflow-hidden h-full md:h-[350px] min-h-[280px]">
                                         {/* Image */}
                                         <div className="w-full md:w-1/2 h-64 md:h-full relative z-10">
                                             <img
