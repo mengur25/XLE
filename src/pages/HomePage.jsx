@@ -350,25 +350,25 @@ const HomePage = () => {
         <h2 className="text-center text-3xl md:text-4xl font-bold text-primary-dark mb-12">Học Viên Nói Gì Về Chúng Tôi</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <ReviewCard
-            name="Nguyễn Văn A"
+            name="Nguyễn Văn An"
             role="Học viên Foundation"
             rating={5}
             content="Mình mất gốc tiếng Anh hoàn toàn nhưng sau khóa Foundation tại Xalo, mình đã tự tin hơn rất nhiều. Giáo viên cực kỳ nhiệt tình!"
-            image="https://placehold.co/100x100?text=A"
+            image="https://placehold.co/100x100?text=VA"
           />
           <ReviewCard
-            name="Trần Thị B"
+            name="Trần Trúc Linh"
             role="Học viên IELTS"
             rating={5}
             content="Phương pháp dạy rất hay, không gây nhàm chán. Mình đã đạt 6.5 IELTS chỉ sau 3 tháng ôn luyện tại đây."
-            image="https://placehold.co/100x100?text=B"
+            image="https://placehold.co/100x100?text=TL"
           />
           <ReviewCard
-            name="Lê Văn C"
+            name="Lê Thanh Ngân"
             role="Học viên Giao tiếp"
             rating={5}
             content="Môi trường học tập năng động, các bạn cùng lớp rất hòa đồng. Thầy cô luôn support 24/7."
-            image="https://placehold.co/100x100?text=C"
+            image="https://placehold.co/100x100?text=TN"
           />
         </div>
       </Section>
