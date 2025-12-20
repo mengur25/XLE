@@ -21,7 +21,20 @@ const StudentResultForm = ({ result, onClose, onSuccess }) => {
     const [imageFile, setImageFile] = useState(null);
     const [profileImageFile, setProfileImageFile] = useState(null);
     const [uploading, setUploading] = useState(false);
-    const [error, setError] = useState('');
+    const [error, setError] = useState(null);
+    const [tracks, setTracks] = useState([]);
+
+    useEffect(() => {
+        const fetchTracks = async () => {
+            try {
+                const res = await client.get('/programs/tracks');
+                setTracks(res.data);
+            } catch (error) {
+                console.error('Error fetching tracks:', error);
+            }
+        };
+        fetchTracks();
+    }, []);
 
     useEffect(() => {
         if (result) {
@@ -152,15 +165,21 @@ const StudentResultForm = ({ result, onClose, onSuccess }) => {
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Class Name
+                                Class Name (Track)
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 name="className"
                                 value={formData.className}
                                 onChange={handleChange}
                                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
-                            />
+                            >
+                                <option value="">Select a Track</option>
+                                {tracks.map((track) => (
+                                    <option key={track._id} value={track.name}>
+                                        {track.name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         <div>
